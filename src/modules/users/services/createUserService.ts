@@ -1,6 +1,6 @@
 import { Role } from "@prisma/client";
 import CreateUserRepository from "../databases/createUserRepository";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";  // Importando bcryptjs
 
 interface CreateUserInterface {
   fullName: string;
@@ -18,7 +18,7 @@ class CreateUserService {
       throw new Error("E-mail já está em uso.");
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);  // Usando bcryptjs
 
     const user = await CreateUserRepository.createUser({
       ...data,
