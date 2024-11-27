@@ -6,11 +6,15 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",              
-    "baseUrl": "./src",              
-    "rootDir": "./src",              
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "outDir": "./dist",  // Garante que a saída vai para a pasta dist
+    "baseUrl": "./",
+    "paths": {
+      "docs/": ["docs/"]  // Mapear o diretório docs
+    }
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src//*.ts",
+    "docs//*.ts"  // Certificando-se de que a pasta docs será compilada também
+  ],
   "exclude": ["node_modules"]
 }
