@@ -1,16 +1,16 @@
 {
-  "name": "desafio02-compasscar_v2",
+  "name": "desafio03-compasscar_v3",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "start": "node dist/app.js",
-    "dev": "nodemon ./src/app.ts",
-    "seed": "ts-node ./src/seeds/seed.ts",
-    "test": "jest --watch",
-    "lint": "eslint --config eslint.config.js --fix"
-  },
-  "author": "",
+"scripts": {
+  "build": "tsc",
+  "start": "node dist/src/app.js",  
+  "dev": "nodemon ./src/app.ts",
+  "seed": "ts-node ./src/seeds/seed.ts",
+  "test": "jest --watch",
+  "lint": "eslint --config eslint.config.js --fix"
+},
+  "author": "Jonathan Laco",
   "license": "ISC",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
