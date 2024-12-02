@@ -1,18 +1,17 @@
 version: "3.8"
 services:
   db:
-    image: mysql:8.0
-    container_name: mysql_container
+    image: postgres:15
+    container_name: postgres_container
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword123     # Senha do usuário root     (NECESSITA SER CONFIGURADO CORRETAMENTE)
-      MYSQL_DATABASE: compasscar               # Nome do banco de dados    (NECESSITA SER CONFIGURADO CORRETAMENTE)
-      MYSQL_USER: appuser                      # Nome do usuário do banco  (NECESSITA SER CONFIGURADO CORRETAMENTE)
-      MYSQL_PASSWORD: userpassword123          # Senha do usuário do banco (NECESSITA SER CONFIGURADO CORRETAMENTE)
+      POSTGRES_USER: admin          
+      POSTGRES_PASSWORD: root       
+      POSTGRES_DB: compasscar       
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data
 
 volumes:
   db_data:
