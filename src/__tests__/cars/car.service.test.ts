@@ -50,8 +50,8 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
       Items: [],
     };
 
-    (prisma.car.findFirst as jest.Mock).mockResolvedValue(null); // Carro não existe
-    (prisma.car.create as jest.Mock).mockResolvedValue(mockCar); // Retorna o carro criado
+    (prisma.car.findFirst as jest.Mock).mockResolvedValue(null);
+    (prisma.car.create as jest.Mock).mockResolvedValue(mockCar);
 
     const data = {
       plate: "ABC1234",
@@ -84,12 +84,10 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
     expect(result).toEqual(mockCar);
   });
 
-  // Teste para createCar com erro
   it("deve lançar erro se houver um problema na criação do carro", async () => {
-    // Simulando que a função create lança um erro
     const errorMessage = "Erro ao criar o carro.";
-    (prisma.car.findFirst as jest.Mock).mockResolvedValue(null); // Carro não existe
-    (prisma.car.create as jest.Mock).mockRejectedValue(new Error(errorMessage)); // Lança erro ao tentar criar
+    (prisma.car.findFirst as jest.Mock).mockResolvedValue(null);
+    (prisma.car.create as jest.Mock).mockRejectedValue(new Error(errorMessage));
 
     const data = {
       plate: "ABC1234",
@@ -102,7 +100,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
       Items: [],
     };
 
-    // Verificar se o erro é tratado corretamente
     await expect(createCar(data)).rejects.toThrowError(errorMessage);
 
     expect(prisma.car.findFirst).toHaveBeenCalledWith({
@@ -121,7 +118,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
     });
   });
 
-  // Teste para getAllCars
   it("deve retornar todos os carros com os filtros aplicados", async () => {
     const mockCars = [
       {
@@ -151,8 +147,8 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
     const mockTotalCars = 2;
     const mockTotalPages = 1;
 
-    (prisma.car.findMany as jest.Mock).mockResolvedValue(mockCars); // Retorna os carros
-    (prisma.car.count as jest.Mock).mockResolvedValue(mockTotalCars); // Contagem total
+    (prisma.car.findMany as jest.Mock).mockResolvedValue(mockCars);
+    (prisma.car.count as jest.Mock).mockResolvedValue(mockTotalCars);
 
     const filters = { status: "ACTIVED" };
     const orderBy = { field: "price", direction: "asc" };
@@ -180,7 +176,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
     });
   });
 
-  // Teste para getCarById
   it("deve retornar um carro pelo ID", async () => {
     const mockCar = {
       id: "1",
@@ -207,7 +202,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
     expect(result).toEqual(mockCar);
   });
 
-  // Teste para updateCar
   it("deve atualizar as informações do carro", async () => {
     const mockCar = {
       id: "1",
@@ -223,38 +217,34 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
 
     const mockUpdatedCar = {
       ...mockCar,
-      price: 35000, // Alterando o preço
+      price: 35000,
     };
 
-    // Mock para simular a atualização do carro
     (prisma.car.update as jest.Mock).mockResolvedValue(mockUpdatedCar);
 
     const carId = "1";
     const data = {
-      price: 35000, // Novo preço
-      Items: [], // Mantendo os itens como estão
+      price: 35000,
+      Items: [],
     };
 
     const result = await updateCar(carId, data);
 
-    // Verificar se o `update` foi chamado com o ID correto e os dados de atualização
     expect(prisma.car.update).toHaveBeenCalledWith({
       where: { id: carId },
       data: {
         ...data,
         Items: {
-          deleteMany: {}, // Removendo itens antigos
-          create: [], // Adicionando itens (nenhum no caso)
+          deleteMany: {},
+          create: [],
         },
       },
       include: { Items: true },
     });
 
-    // Verificar se o resultado retornado é o carro atualizado
     expect(result).toEqual(mockUpdatedCar);
   });
 
-  // Teste para deleteCar
   it("deve excluir o carro com sucesso se não houver pedidos em aberto", async () => {
     const mockCar = {
       id: "1",
@@ -268,10 +258,8 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
       Items: [],
     };
 
-    // Mock do findFirst para simular que não há pedidos em aberto
     (prisma.order.findFirst as jest.Mock).mockResolvedValue(null);
 
-    // Mock da atualização do carro
     (prisma.car.update as jest.Mock).mockResolvedValue({
       ...mockCar,
       status: "DELETED",
@@ -279,7 +267,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
 
     const carId = "1";
 
-    // Chama a função deleteCar
     const result = await deleteCar(carId);
 
     expect(prisma.order.findFirst).toHaveBeenCalledWith({
@@ -300,7 +287,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
   });
 
   it("deve lançar erro se houver pedidos em aberto para o carro", async () => {
-    // Mock do findFirst para simular que há um pedido em aberto
     (prisma.order.findFirst as jest.Mock).mockResolvedValue({
       id: "order-1",
       status: "OPEN",
@@ -320,7 +306,6 @@ describe("createCar, getAllCars, getCarById, updateCar, deleteCar", () => {
       },
     });
 
-    // O método update não deve ser chamado pois houve um erro
     expect(prisma.car.update).not.toHaveBeenCalled();
   });
 });

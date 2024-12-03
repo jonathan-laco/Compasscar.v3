@@ -9,7 +9,6 @@ describe("authenticateToken middleware", () => {
   const app = express();
   app.use(express.json());
 
-  // Rota para simular o uso do middleware
   app.get("/protected", authenticateToken, (req: Request, res: Response) => {
     res.status(200).json({ message: "Access granted", user: req.user });
   });

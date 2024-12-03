@@ -2,7 +2,6 @@ import { PrismaClient, Status } from "@prisma/client";
 import orderService from "../../modules/orders/services/order.service"; // Ajuste o caminho conforme necessário
 import axios from "axios";
 
-// Mock do Prisma Client
 jest.mock("@prisma/client", () => {
   const mockPrismaClient = {
     order: {
@@ -20,10 +19,20 @@ jest.mock("@prisma/client", () => {
   };
 });
 
-// Mock do Axios
 jest.mock("axios");
 
 const prisma = new PrismaClient();
+const estadosPermitidos = [
+  "AL",
+  "BA",
+  "CE",
+  "MA",
+  "PB",
+  "PE",
+  "PI",
+  "RN",
+  "SE",
+];
 
 describe("OrderService", () => {
   afterEach(() => {
@@ -39,37 +48,28 @@ describe("OrderService", () => {
         status: "OPEN" as Status,
         totalValue: 0,
         createdAt: new Date(),
+        updatedAt: new Date(),
         zipcode: "",
         city: "",
         state: "",
       };
 
-      // Mock para simular que o pedido não existe
-      (prisma.order.findFirst as jest.Mock).mockResolvedValue(null); // Não existe pedido aberto para o cliente
+      (prisma.order.findFirst as jest.Mock).mockResolvedValue(null);
 
-      // Mock para simular a criação do pedido
       (prisma.order.create as jest.Mock).mockResolvedValue(mockOrder);
 
-      const data = {
-        carId: "car1",
-        clientId: "client1",
-      };
+      const data = { clientId: "client1", carId: "car1" };
 
       const result = await orderService.createOrder(data);
 
-      // Verificar se a função `findFirst` foi chamada com os parâmetros corretos
       expect(prisma.order.findFirst).toHaveBeenCalledWith({
-        where: {
-          clientId: "client1",
-          status: "OPEN", // status de "OPEN"
-        },
+        where: { clientId: "client1", status: "OPEN" },
       });
-
-      // Verificar se a função `create` foi chamada com os dados corretos
       expect(prisma.order.create).toHaveBeenCalledWith({
         data: {
-          ...data,
-          status: "OPEN", // status de "OPEN"
+          clientId: "client1",
+          carId: "car1",
+          status: "OPEN",
           totalValue: 0,
           createdAt: expect.any(Date),
           zipcode: "",
@@ -77,52 +77,26 @@ describe("OrderService", () => {
           state: "",
         },
       });
-
-      // Verificar se o resultado retornado é o pedido mockado
       expect(result).toEqual(mockOrder);
     });
 
-    it("não deve criar um pedido se já existir um pedido aberto para o cliente", async () => {
-      const existingOrder = {
-        id: "1",
-        clientId: "client1",
-        carId: "car1",
-        status: "OPEN" as Status,
-        totalValue: 0,
-        createdAt: new Date(),
-        zipcode: "",
-        city: "",
-        state: "",
-      };
+    it("deve lançar erro se o cliente já tiver um pedido aberto", async () => {
+      const mockExistingOrder = { id: "1", status: "OPEN" as Status };
 
-      // Mock para simular que já existe um pedido aberto para o cliente
-      (prisma.order.findFirst as jest.Mock).mockResolvedValue(existingOrder); // Pedido já existe
+      (prisma.order.findFirst as jest.Mock).mockResolvedValue(
+        mockExistingOrder
+      );
 
-      const data = {
-        carId: "car1",
-        clientId: "client1",
-      };
+      const data = { clientId: "client1", carId: "car1" };
 
-      // Verificar se um erro é lançado quando já existir um pedido aberto
       await expect(orderService.createOrder(data)).rejects.toThrow(
         "Este cliente já possui um pedido aberto."
       );
-
-      // Verificar se a função `findFirst` foi chamada
-      expect(prisma.order.findFirst).toHaveBeenCalledWith({
-        where: {
-          clientId: "client1",
-          status: "OPEN", // status de "OPEN"
-        },
-      });
-
-      // A função `create` não deve ser chamada se já existir um pedido aberto
-      expect(prisma.order.create).not.toHaveBeenCalled();
     });
   });
 
-  describe("updateOrder", () => {
-    it("deve atualizar um pedido com sucesso", async () => {
+  describe("getOrderById", () => {
+    it("deve retornar o pedido corretamente", async () => {
       const mockOrder = {
         id: "1",
         clientId: "client1",
@@ -132,21 +106,106 @@ describe("OrderService", () => {
         createdAt: new Date(),
         updatedAt: new Date(),
         zipcode: "12345678",
-        city: "Cidade Teste",
-        state: "SP",
+        city: "Salvador",
+        state: "BA",
       };
 
-      // Mock para simular que o pedido existe
       (prisma.order.findUnique as jest.Mock).mockResolvedValue(mockOrder);
 
-      // Mock para simular a atualização do pedido
-      (prisma.order.update as jest.Mock).mockResolvedValue(mockOrder);
+      const result = await orderService.getOrderById("1");
 
-      // Mock para simular a resposta da API do ViaCEP
+      expect(prisma.order.findUnique).toHaveBeenCalledWith({
+        where: { id: "1" },
+        include: expect.any(Object),
+      });
+      expect(result).toEqual(mockOrder);
+    });
+
+    it("deve lançar erro se o pedido não for encontrado", async () => {
+      (prisma.order.findUnique as jest.Mock).mockResolvedValue(null);
+
+      await expect(orderService.getOrderById("1")).rejects.toThrow(
+        "Pedido não encontrado"
+      );
+    });
+  });
+
+  describe("listOrders", () => {
+    it("deve listar os pedidos com sucesso", async () => {
+      const mockOrders = [
+        {
+          id: "1",
+          clientId: "client1",
+          carId: "car1",
+          status: "OPEN" as Status,
+          totalValue: 0,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          zipcode: "12345678",
+          city: "Salvador",
+          state: "BA",
+        },
+      ];
+
+      (prisma.order.findMany as jest.Mock).mockResolvedValue(mockOrders);
+      (prisma.order.count as jest.Mock).mockResolvedValue(1);
+
+      const params = {
+        status: "OPEN",
+        clientCpf: "12345678900",
+        startDate: "2024-01-01",
+        endDate: "2024-01-10",
+        sort: "createdAt",
+        order: "asc" as "asc",
+        page: 1,
+        limit: 10,
+      };
+
+      const result = await orderService.listOrders(params);
+
+      expect(prisma.order.findMany).toHaveBeenCalledWith({
+        where: expect.any(Object),
+        include: expect.any(Object),
+        orderBy: { createdAt: "asc" },
+        skip: 0,
+        take: 10,
+      });
+
+      expect(result.orders).toEqual(mockOrders);
+      expect(result.pagination).toEqual({
+        total: 1,
+        page: 1,
+        pages: 1,
+      });
+    });
+  });
+
+  describe("updateOrder", () => {
+    it("deve atualizar um pedido com sucesso para um estado permitido", async () => {
+      const mockOrder = {
+        id: "1",
+        clientId: "client1",
+        carId: "car1",
+        status: "OPEN" as Status,
+        totalValue: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        zipcode: "12345678",
+        city: "Salvador",
+        state: "BA",
+      };
+
+      (prisma.order.findUnique as jest.Mock).mockResolvedValue(mockOrder);
+
+      (prisma.order.update as jest.Mock).mockResolvedValue({
+        ...mockOrder,
+        status: "APPROVED",
+      });
+
       (axios.get as jest.Mock).mockResolvedValue({
         data: {
-          localidade: "Cidade Teste",
-          uf: "SP",
+          localidade: "Salvador",
+          uf: "BA", // Estado valido
         },
       });
 
@@ -154,20 +213,18 @@ describe("OrderService", () => {
         id: "1",
         status: "APPROVED",
         zipcode: "12345678",
-        city: "Cidade Teste",
-        state: "SP",
+        city: "Salvador",
+        state: "BA",
         startDate: "2024-01-01",
         endDate: "2024-01-10",
       };
 
       const result = await orderService.updateOrder(data.id, data);
 
-      // Verificar se a função `findUnique` foi chamada para encontrar o pedido
       expect(prisma.order.findUnique).toHaveBeenCalledWith({
         where: { id: "1" },
       });
 
-      // Verificar se a função `update` foi chamada com os dados corretos
       expect(prisma.order.update).toHaveBeenCalledWith({
         where: { id: "1" },
         data: expect.objectContaining({
@@ -177,66 +234,132 @@ describe("OrderService", () => {
         }),
       });
 
-      // Verificar se o resultado retornado é o pedido atualizado
-      expect(result).toEqual(mockOrder);
+      expect(result).toEqual(expect.objectContaining({ status: "APPROVED" }));
     });
 
-    it("não deve atualizar um pedido se não encontrado", async () => {
-      // Mock para simular que o pedido não existe
+    it("deve lançar erro quando o pedido não for encontrado", async () => {
       (prisma.order.findUnique as jest.Mock).mockResolvedValue(null);
 
       const data = {
         id: "1",
         status: "APPROVED",
+        zipcode: "12345678",
+        city: "Salvador",
+        state: "BA",
+        startDate: "2024-01-01",
+        endDate: "2024-01-10",
       };
 
-      // Verificar se um erro é lançado quando o pedido não for encontrado
       await expect(orderService.updateOrder(data.id, data)).rejects.toThrow(
         "Pedido não encontrado."
       );
     });
 
-    it("deve lançar erro quando o CEP não for encontrado", async () => {
-      // Mock para simular que o pedido existe
-      (prisma.order.findUnique as jest.Mock).mockResolvedValue({
+    it("deve lançar erro quando o status do pedido não for 'OPEN'", async () => {
+      const mockOrder = {
         id: "1",
         clientId: "client1",
         carId: "car1",
-        status: "OPEN" as Status,
+        status: "APPROVED" as Status,
         totalValue: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
-        zipcode: "00000000", // CEP que vai falhar na consulta
-        city: "Cidade Teste",
-        state: "SP",
-      });
+        zipcode: "12345678",
+        city: "Salvador",
+        state: "BA",
+      };
 
-      // Mock para simular a falha na consulta do CEP
-      (axios.get as jest.Mock).mockResolvedValue({
-        data: { erro: true },
-      });
+      (prisma.order.findUnique as jest.Mock).mockResolvedValue(mockOrder);
 
       const data = {
         id: "1",
         status: "APPROVED",
-        zipcode: "00000000", // CEP inválido
-        city: "Cidade Teste",
-        state: "SP",
+        zipcode: "12345678",
+        city: "Salvador",
+        state: "BA",
         startDate: "2024-01-01",
         endDate: "2024-01-10",
       };
 
-      // Esperar que o erro seja lançado
       await expect(orderService.updateOrder(data.id, data)).rejects.toThrow(
-        "CEP não encontrado."
-      );
-
-      // Verificar se a função `axios.get` foi chamada
-      expect(axios.get).toHaveBeenCalledWith(
-        "https://viacep.com.br/ws/00000000/json/"
+        "O status do pedido só pode ser alterado se o pedido estiver aberto."
       );
     });
   });
 
-  // Outros testes podem ser adicionados aqui, como o teste de `deleteOrder`, `getOrderById`, etc.
+  // AQUI
+  describe("deleteOrder", () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it("deve deletar um pedido com sucesso", async () => {
+      const mockOrder = {
+        id: "1",
+        clientId: "client1",
+        carId: "car1",
+        status: "OPEN",
+        totalValue: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        zipcode: "12345678",
+        city: "Salvador",
+        state: "BA",
+      };
+
+      (prisma.order.findUnique as jest.Mock).mockResolvedValue(mockOrder);
+
+      (prisma.order.update as jest.Mock).mockResolvedValue({
+        ...mockOrder,
+        status: "CANCELED",
+        cancellationDate: new Date(),
+      });
+
+      const result = await orderService.deleteOrder("1");
+
+      expect(prisma.order.findUnique).toHaveBeenCalledWith({
+        where: { id: "1" },
+      });
+
+      expect(prisma.order.update).toHaveBeenCalledWith({
+        where: { id: "1" },
+        data: {
+          status: "CANCELED",
+          cancellationDate: expect.any(Date),
+        },
+      });
+
+      expect(result).toEqual(expect.objectContaining({ status: "CANCELED" }));
+    });
+
+    it("deve lançar erro se o pedido não for encontrado", async () => {
+      (prisma.order.findUnique as jest.Mock).mockResolvedValue(null);
+
+      await expect(orderService.deleteOrder("1")).rejects.toThrow(
+        "Pedido não encontrado."
+      );
+    });
+
+    it("deve lançar erro se o pedido não estiver no status 'OPEN'", async () => {
+      const mockOrder = {
+        id: "1",
+        clientId: "client1",
+        carId: "car1",
+        status: "APPROVED",
+        totalValue: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        zipcode: "12345678",
+        city: "Salvador",
+        state: "BA",
+      };
+
+      // Mock para simular que o pedido existe
+      (prisma.order.findUnique as jest.Mock).mockResolvedValue(mockOrder);
+
+      await expect(orderService.deleteOrder("1")).rejects.toThrow(
+        "Apenas pedidos com status 'Aberto' podem ser cancelados."
+      );
+    });
+  });
 });

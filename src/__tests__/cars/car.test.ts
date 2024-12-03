@@ -45,6 +45,7 @@ describe("Car Controller", () => {
     });
 
     // DEVE SURTIR ERROS
+
     // it("deve retornar status 500 quando ocorrer um erro", async () => {
     //   const req = {
     //     body: {
@@ -75,6 +76,8 @@ describe("Car Controller", () => {
     //   //   details: error.message,
     //   // });
     // });
+
+    // AQUI TAMBÉM
   });
 
   describe("getCars", () => {
@@ -402,63 +405,84 @@ describe("Car Controller", () => {
       expect(res.json).toHaveBeenCalledWith(result);
     });
 
-    // it("deve retornar 404 quando o carro não existe", async () => {
-    //   const req = {
-    //     params: { id: "1" },
-    //   } as any as Request;
+    //OBSERVAR ESSA PARTE
 
-    //   const res = {
-    //     status: jest.fn().mockReturnThis(),
-    //     json: jest.fn(),
-    //   } as any as Response;
+    it("deve retornar 404 quando o carro não existe", async () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
 
-    //   const error = new Error("Carro inexistente");
-    //   (carService.deleteCar as jest.Mock).mockRejectedValue(error);
+      const req = {
+        params: { id: "1" },
+      } as any as Request;
 
-    //   await carController.deleteCar(req, res);
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      } as any as Response;
 
-    //   expect(res.status).toHaveBeenCalledWith(404);
-    //   expect(res.json).toHaveBeenCalledWith({ message: error.message });
-    // });
+      const error = new Error("Carro inexistente");
+      (carService.deleteCar as jest.Mock).mockRejectedValue(error);
 
-    // it("deve retornar 400 quando o carro já está excluído", async () => {
-    //   const req = {
-    //     params: { id: "1" },
-    //   } as any as Request;
+      await carController.deleteCar(req, res);
 
-    //   const res = {
-    //     status: jest.fn().mockReturnThis(),
-    //     json: jest.fn(),
-    //   } as any as Response;
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ message: error.message });
 
-    //   const error = new Error("Este carro já está excluído.");
-    //   (carService.deleteCar as jest.Mock).mockRejectedValue(error);
+      consoleErrorMock.mockRestore();
+    });
 
-    //   await carController.deleteCar(req, res);
+    it("deve retornar 400 quando o carro já está excluído", async () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
 
-    //   expect(res.status).toHaveBeenCalledWith(400);
-    //   expect(res.json).toHaveBeenCalledWith({ message: error.message });
-    // });
+      const req = {
+        params: { id: "1" },
+      } as any as Request;
 
-    // it("deve retornar 500 quando ocorrer um erro desconhecido", async () => {
-    //   const req = {
-    //     params: { id: "1" },
-    //   } as any as Request;
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      } as any as Response;
 
-    //   const res = {
-    //     status: jest.fn().mockReturnThis(),
-    //     json: jest.fn(),
-    //   } as any as Response;
+      const error = new Error("Este carro já está excluído.");
+      (carService.deleteCar as jest.Mock).mockRejectedValue(error);
 
-    //   const error = new Error("Erro desconhecido");
-    //   (carService.deleteCar as jest.Mock).mockRejectedValue(error);
+      await carController.deleteCar(req, res);
 
-    //   await carController.deleteCar(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ message: error.message });
 
-    //   expect(res.status).toHaveBeenCalledWith(500);
-    //   expect(res.json).toHaveBeenCalledWith({
-    //     message: "Erro ao excluir o carro",
-    //   });
-    // });
+      consoleErrorMock.mockRestore();
+    });
+
+    it("deve retornar 500 quando ocorrer um erro desconhecido", async () => {
+      const consoleErrorMock = jest
+        .spyOn(console, "error")
+        // Mock para não exibir o console.error
+        .mockImplementation(() => {});
+
+      const req = {
+        params: { id: "1" },
+      } as any as Request;
+
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      } as any as Response;
+
+      const error = new Error("Erro desconhecido");
+      (carService.deleteCar as jest.Mock).mockRejectedValue(error);
+
+      await carController.deleteCar(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({
+        message: "Erro ao excluir o carro",
+      });
+
+      consoleErrorMock.mockRestore();
+    });
   });
 });
