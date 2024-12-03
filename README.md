@@ -75,7 +75,9 @@ os testes já estão definidos para --coverage, exibindo a cobertura de testes f
 
 ## 🔢 Documentação da API
 
-A documentação da API está disponível através do Swagger UI nos seguintes links:
+## 🌐 Swagger
+
+A documentação da API está apontada para o DNS público, garantindo que as informações estejam sempre atualizadas e acessíveis. Utilize os links abaixo para acessar a documentação:
 
 - **Via DNS Público**: [http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/api-docs](http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/api-docs)
 - **Via IP Público**: [http://18.188.152.59:8080/api-docs](http://18.188.152.59:8080/api-docs)
