@@ -1,0 +1,916 @@
+{
+	"info": {
+		"_postman_id": "6b9b0fc0-fa6a-41ae-ab92-20e091edc5c7",
+		"name": "CompassCar V3.0.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14156529"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Auth Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"admin@example.com\",\r\n    \"password\":\"admin123\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Local de auth",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYzZDE3NDYzLTk2YTEtNDllZi04NDgxLTg0OTEzOGNhOWI5YiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA1MTY0NDYsImV4cCI6MTczMDUxNzA0Nn0.gNOYBye-Y768zHPyZSdpaArA9yx3vuErfuyKa73z0M",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Create Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlOWQ3OTIyLWY0YTItNDcyYy1hNGIzLTU4NzYxZjNhZjM5MCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjgzNDEsImV4cCI6MTczMDY2ODk0MX0.5ZobOua61fMb60uzfVKV9U5Ze651olCgl_OFOM7XuXI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plate\": \"ABC-1234\",\r\n  \"brand\": \"Totoya\",\r\n  \"model\": \"Corolla\",\r\n  \"year\": 2020,\r\n  \"km\": 15000,\r\n  \"price\": 90000,\r\n  \"Items\": [\r\n    \"Ar-condicionado\",\r\n    \"Direção hidráulica\"\r\n  ],\r\n  \"status\": \"ACTIVED\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/cars",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Car",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlOWQ3OTIyLWY0YTItNDcyYy1hNGIzLTU4NzYxZjNhZjM5MCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjgzNDEsImV4cCI6MTczMDY2ODk0MX0.5ZobOua61fMb60uzfVKV9U5Ze651olCgl_OFOM7XuXI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/cars",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plate\": \"ABC-5678\",\r\n  \"brand\": \"Honda\",\r\n  \"model\": \"Civic\",\r\n  \"year\": 2021,\r\n  \"km\": 12000,\r\n  \"price\": 95000,\r\n  \"Items\": [\r\n    \"Sensores de estacionamento\",\r\n    \"Navegação\"\r\n  ],\r\n  \"status\": \"ACTIVED\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/cars/2b3b66f3-666e-44bd-8f66-50be6f1525b1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cars",
+								"2b3b66f3-666e-44bd-8f66-50be6f1525b1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/cars/2b3b66f3-666e-44bd-8f66-50be6f1525b1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cars",
+								"2b3b66f3-666e-44bd-8f66-50be6f1525b1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Create Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlOWQ3OTIyLWY0YTItNDcyYy1hNGIzLTU4NzYxZjNhZjM5MCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjgzNDEsImV4cCI6MTczMDY2ODk0MX0.5ZobOua61fMb60uzfVKV9U5Ze651olCgl_OFOM7XuXI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"Jaum da Silva\",\r\n    \"birthDate\": \"1990-01-01\",\r\n    \"cpf\": \"04754659031\",\r\n    \"email\": \"joao@example.com\",\r\n    \"phone\": \"11987654321\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/clients",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/clients",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Delete Client",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/clients",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"João da Silva Atualizado\",\r\n    \"email\": \"joao_atualizado@example.com\",\r\n    \"phone\": \"11987654322\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/clients/fddebc83-3593-4d7a-8e0b-d02b8c360539",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"clients",
+								"fddebc83-3593-4d7a-8e0b-d02b8c360539"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzMGI1MTk1LWFmYzYtNGQ1ZC1iNjZlLTNjODNjZTYxMDc1NSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2MzIwNzksImV4cCI6MTczMDYzMjY3OX0.GGadMnBwB_eG__OBR3Q6-AOO2WrzFlxQ1qCJhYKJ2oU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/clients/fddebc83-3593-4d7a-8e0b-d02b8c360539",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"clients",
+								"fddebc83-3593-4d7a-8e0b-d02b8c360539"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYzZDE3NDYzLTk2YTEtNDllZi04NDgxLTg0OTEzOGNhOWI5YiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA1MjAwNjUsImV4cCI6MTczMDUyMDY2NX0.NzBT4LsEz4Y-gD27u9ZrfP_og-J1Ju5UtfDyhpXE7WM",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZlOWQ3OTIyLWY0YTItNDcyYy1hNGIzLTU4NzYxZjNhZjM5MCIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjgzNDEsImV4cCI6MTczMDY2ODk0MX0.5ZobOua61fMb60uzfVKV9U5Ze651olCgl_OFOM7XuXI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Maria Silva\",\r\n  \"email\": \"maria.silva@example.com\",\r\n  \"password\": \"senhaSegura123\",\r\n  \"Role\": \"USER\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/users/create",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjUwOTIsImV4cCI6MTczMDY2NTY5Mn0.hnCXctk3-_IpmjRW5Pp9XZW6FHTeEj-kkMgLZIoCbhY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Maria Silva\",\r\n  \"email\": \"maria.silva@example.com\",\r\n  \"password\": \"senhaSegura123\",\r\n  \"Role\": \"USER\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/users/deleted",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"deleted"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjUwOTIsImV4cCI6MTczMDY2NTY5Mn0.hnCXctk3-_IpmjRW5Pp9XZW6FHTeEj-kkMgLZIoCbhY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Maria xerecuda da silva testada\",\r\n  \"email\": \"mariaxerecuda.nova@example.com\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/users/update/a9fc4343-0bb4-4261-b024-2365f515dddd",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"update",
+								"a9fc4343-0bb4-4261-b024-2365f515dddd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2NjUwOTIsImV4cCI6MTczMDY2NTY5Mn0.hnCXctk3-_IpmjRW5Pp9XZW6FHTeEj-kkMgLZIoCbhY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Maria xerecuda da silva\",\r\n  \"email\": \"mariaxerecuda.nova@example.com\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/users/delete/a9fc4343-0bb4-4261-b024-2365f515dddd",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"delete",
+								"a9fc4343-0bb4-4261-b024-2365f515dddd"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlNDI4NWU0LTVlZmMtNDAyMC1iOGZlLTNjM2NmYWVkN2FhNiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzI3NDAwMzcsImV4cCI6MTczMjc0MDYzN30.hhM6lycN47evzEpTTI4jHry0JL6D7rqomrdPydCJH48",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2Njc3NTIsImV4cCI6MTczMDY2ODM1Mn0.tKL3VmSXwDqhKgk-kGkmERXyhmmdx0zSxVA5zGGEJN4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"carId\": \"22032c25-7d96-4f18-a7cb-ac307ec2cfb6\",\r\n  \"clientId\": \"00b03ade-72a8-4b4b-87d1-51411b856ba8\",\r\n  \"zipcode\": \"12345678\", \r\n  \"city\": \"São Paulo\",    \r\n  \"state\": \"SP\"           \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/orders",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2Njc3NTIsImV4cCI6MTczMDY2ODM1Mn0.tKL3VmSXwDqhKgk-kGkmERXyhmmdx0zSxVA5zGGEJN4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/orders",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2Njc3NTIsImV4cCI6MTczMDY2ODM1Mn0.tKL3VmSXwDqhKgk-kGkmERXyhmmdx0zSxVA5zGGEJN4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"zipcode\": \"57010200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/orders/35f50866-e612-4cdb-b66d-f3a545683226",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								"35f50866-e612-4cdb-b66d-f3a545683226"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4NTdhYzM1LThhMzItNDE2NS05Yzg3LWQ2OTgwM2MyYWJiOSIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3MzA2Njc3NTIsImV4cCI6MTczMDY2ODM1Mn0.tKL3VmSXwDqhKgk-kGkmERXyhmmdx0zSxVA5zGGEJN4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"zipcode\": \"57010200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/orders/35f50866-e612-4cdb-b66d-f3a545683226",
+							"protocol": "http",
+							"host": [
+								"ec2-18-188-152-59",
+								"us-east-2",
+								"compute",
+								"amazonaws",
+								"com"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								"35f50866-e612-4cdb-b66d-f3a545683226"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
