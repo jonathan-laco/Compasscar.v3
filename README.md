@@ -75,12 +75,20 @@ os testes já estão definidos para --coverage, exibindo a cobertura de testes f
 
 ## 🔢 Documentação da API
 
-## 🌐 Swagger
+## 🌐 Ambiente de Produção
 
 A documentação da API está apontada para o DNS público, garantindo que as informações estejam sempre atualizadas e acessíveis. Utilize os links abaixo para acessar a documentação:
 
 - **Via DNS Público**: [http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/api-docs](http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/api-docs)
 - **Via IP Público**: [http://18.188.152.59:8080/api-docs](http://18.188.152.59:8080/api-docs)
+
+## 🌐 Ambiente de homologação
+
+Este ambiente foi utilizado para validar o deploy e realizar testes finais antes de enviar as alterações para produção.
+
+- **URLs de acesso**:
+  - [API Docs DNS](http://ec2-13-58-172-229.us-east-2.compute.amazonaws.com:8080/api-docs)
+  - [API Docs IP](http://13.58.172.229:8080/api-docs/)
 
 ## 🛠️ Desafios Enfrentados
 
