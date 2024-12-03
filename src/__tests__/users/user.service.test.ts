@@ -9,7 +9,6 @@ import GetUserByIdService from "../../modules/users/services/getIdUserService"; 
 import GetUserByIdRepository from "../../modules/users/databases/getIdUserRepository"; // Ajuste o caminho conforme necessário
 import bcrypt from "bcryptjs"; // Substituindo bcrypt por bcryptjs
 
-// Mock dos repositórios e bcrypt
 jest.mock("../../modules/users/databases/createUserRepository");
 jest.mock("../../modules/users/databases/updateUserRepository");
 jest.mock("../../modules/users/databases/deleteUserRepository");
@@ -21,7 +20,6 @@ describe("User Services", () => {
     jest.clearAllMocks();
   });
 
-  // Testes para o CreateUserService
   it("deve criar um usuário com sucesso", async () => {
     const mockUser = {
       id: "1",
@@ -39,32 +37,25 @@ describe("User Services", () => {
       Role: "USER" as Role,
     };
 
-    // Mock para simular que o e-mail não existe
     (CreateUserRepository.findUserByEmail as jest.Mock).mockResolvedValue(null);
 
-    // Mock para simular a criação do usuário
     (CreateUserRepository.createUser as jest.Mock).mockResolvedValue(mockUser);
 
-    // Mock para o bcrypt.hash (simulando a criação da senha hash)
     (bcrypt.hash as jest.Mock).mockResolvedValue("hashedPassword");
 
     const result = await CreateUserService.createUser(data);
 
-    // Verificar se o repositório foi chamado para buscar o usuário pelo email
     expect(CreateUserRepository.findUserByEmail).toHaveBeenCalledWith(
       "joao.silva@email.com"
     );
 
-    // Verificar se o bcrypt.hash foi chamado para criptografar a senha
     expect(bcrypt.hash).toHaveBeenCalledWith("senha123", 10);
 
-    // Verificar se o repositório foi chamado para criar o usuário com os dados corretos
     expect(CreateUserRepository.createUser).toHaveBeenCalledWith({
       ...data,
-      password: "hashedPassword", // A senha deve estar hashada
+      password: "hashedPassword",
     });
 
-    // Verificar se o resultado é o usuário mockado
     expect(result).toEqual(mockUser);
   });
 
@@ -78,7 +69,6 @@ describe("User Services", () => {
       deletedAt: null,
     };
 
-    // Mock para simular que o e-mail já está em uso
     (CreateUserRepository.findUserByEmail as jest.Mock).mockResolvedValue(
       existingUser
     );
@@ -90,21 +80,17 @@ describe("User Services", () => {
       Role: "USER" as Role,
     };
 
-    // Verificar se um erro é lançado quando o e-mail já está em uso
     await expect(CreateUserService.createUser(data)).rejects.toThrow(
       "E-mail já está em uso."
     );
 
-    // Verificar se a função `findUserByEmail` foi chamada
     expect(CreateUserRepository.findUserByEmail).toHaveBeenCalledWith(
       "maria.souza@email.com"
     );
 
-    // A função `createUser` não deve ser chamada se o e-mail já estiver em uso
     expect(CreateUserRepository.createUser).not.toHaveBeenCalled();
   });
 
-  // Testes para o UpdateUserService
   it("deve atualizar o usuário com sucesso", async () => {
     const mockUpdatedUser = {
       id: "1",
@@ -122,12 +108,10 @@ describe("User Services", () => {
       password: "novaSenha123",
     };
 
-    // Mock para simular que a atualização foi bem-sucedida
     (UpdateUserRepository.updateUser as jest.Mock).mockResolvedValue(
       mockUpdatedUser
     );
 
-    // Mock para o bcrypt.hash (simulando a criação da senha hash)
     (bcrypt.hash as jest.Mock).mockResolvedValue("hashedPassword");
 
     const result = await UpdateUserService.updateUser(id, data);
@@ -140,14 +124,11 @@ describe("User Services", () => {
     expect(result).toEqual(mockUpdatedUser);
   });
 
-  // Testes para o DeleteUserService
   it("deve deletar o usuário com sucesso", async () => {
     const id = "1";
 
-    // Mock para simular que o usuário existe
     (deleteUserRepository.getUserId as jest.Mock).mockResolvedValue({ id });
 
-    // Mock para simular que a exclusão foi bem-sucedida
     (deleteUserRepository.deleteUser as jest.Mock).mockResolvedValue(undefined);
 
     await deleteUserService.deleteUser(id);
@@ -168,7 +149,6 @@ describe("User Services", () => {
     expect(deleteUserRepository.deleteUser).not.toHaveBeenCalled();
   });
 
-  // Testes para o GetUserByIdService
   it("deve retornar o usuário com sucesso", async () => {
     const mockUser = {
       id: "1",
