@@ -6,7 +6,7 @@ API para gerenciamento de pedidos, clientes e veículos em um sistema de vendas 
 
 ### Pré-requisitos
 
-- [Node.js](https://nodejs.org/) (v14 ou superior)
+- [Node.js](https://nodejs.org/)
 - [Postgresql](https://www.postgresql.org/)
 
 1 - Clone o projeto
