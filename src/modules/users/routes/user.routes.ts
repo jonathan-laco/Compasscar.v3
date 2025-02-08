@@ -48,10 +48,7 @@ const router = Router();
  *               password:
  *                 type: string
  *                 example: "senhaSegura123"
- *               role:
- *                 type: string
- *                 enum: [ADMIN, USER]
- *                 example: "USER"
+ *                # Role opcional para USER, para admin é necessário passar a Role como ADMIN
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
@@ -180,10 +177,20 @@ const router = Router();
  *         description: Usuário já excluído
  */
 
-router.post("/create", authenticateToken, createUserValidator, UserController.createUser);
+router.post(
+  "/create",
+  authenticateToken,
+  createUserValidator,
+  UserController.createUser
+);
 router.get("/", authenticateToken, UserController.listUsers); // Aqui já está a lógica para isDeleted
 router.get("/:id", authenticateToken, UserController.getUserById);
-router.patch("/update/:id", authenticateToken, updateUserValidator, UserController.updateUser);
+router.patch(
+  "/update/:id",
+  authenticateToken,
+  updateUserValidator,
+  UserController.updateUser
+);
 router.delete("/delete/:id", authenticateToken, UserController.deleteUser);
 
 export default router;
