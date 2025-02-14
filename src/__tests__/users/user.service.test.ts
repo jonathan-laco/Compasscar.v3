@@ -1,12 +1,12 @@
 import { Role } from "@prisma/client";
-import CreateUserService from "../../modules/users/services/createUserService"; // Ajuste o caminho conforme necessário
-import CreateUserRepository from "../../modules/users/databases/createUserRepository"; // Ajuste o caminho conforme necessário
-import UpdateUserService from "../../modules/users/services/updateUserService"; // Ajuste o caminho conforme necessário
-import UpdateUserRepository from "../../modules/users/databases/updateUserRepository"; // Ajuste o caminho conforme necessário
-import deleteUserService from "../../modules/users/services/deleteUserService"; // Ajuste o caminho conforme necessário
-import deleteUserRepository from "../../modules/users/databases/deleteUserRepository"; // Ajuste o caminho conforme necessário
-import GetUserByIdService from "../../modules/users/services/getIdUserService"; // Ajuste o caminho conforme necessário
-import GetUserByIdRepository from "../../modules/users/databases/getIdUserRepository"; // Ajuste o caminho conforme necessário
+import CreateUserService from "../../modules/users/services/createUserService";
+import CreateUserRepository from "../../modules/users/databases/createUserRepository";
+import UpdateUserService from "../../modules/users/services/updateUserService";
+import UpdateUserRepository from "../../modules/users/databases/updateUserRepository";
+import deleteUserService from "../../modules/users/services/deleteUserService";
+import deleteUserRepository from "../../modules/users/databases/deleteUserRepository";
+import GetUserByIdService from "../../modules/users/services/getIdUserService";
+import GetUserByIdRepository from "../../modules/users/databases/getIdUserRepository";
 import bcrypt from "bcryptjs"; // Substituindo bcrypt por bcryptjs
 
 jest.mock("../../modules/users/databases/createUserRepository");

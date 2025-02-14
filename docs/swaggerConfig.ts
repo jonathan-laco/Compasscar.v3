@@ -10,7 +10,7 @@ const swaggerOptions = {
       title: "API Documentation",
       version: "3.0.0",
       description:
-        "API CompassCar: Gerenciamento seguro e eficiente de clientes, veículos e pedidos.",
+        "API CompassCar: Gerenciamento seguro e eficiente de clientes, veículos e pedidos.\n\nDesenvolvido por **Jonathan Laco**.\n\n🔗 [GitHub](https://github.com/jonathan-laco) | 🌍 [Portfólio](http://jonathan-laco.vercel.app/)",
     },
     servers: [
       {
