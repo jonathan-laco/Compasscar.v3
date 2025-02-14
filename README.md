@@ -8,17 +8,18 @@ API para gerenciamento de pedidos, clientes e veículos em um sistema de vendas 
 
 - [Node.js](https://nodejs.org/)
 - [Postgresql](https://www.postgresql.org/)
+- [Docker](https://www.docker.com/)
 
 1 - Clone o projeto
 
 ```bash
-  git clone https://github.com/jonathan-laco/Desafio3-JonathanLaco.git
+  git clone https://github.com/jonathan-laco/CompassCar.v3.git
 ```
 
 2 - Vá até o diretório
 
 ```bash
-  cd  Desafio3-JonathanLaco
+  cd  CompassCar.v3
 ```
 
 3 - Instale as dependências
@@ -79,16 +80,8 @@ os testes já estão definidos para --coverage, exibindo a cobertura de testes f
 
 A documentação da API está apontada para o DNS público, garantindo que as informações estejam sempre atualizadas e acessíveis. Utilize os links abaixo para acessar a documentação:
 
-- **Via DNS Público**: [http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/api-docs](http://ec2-18-188-152-59.us-east-2.compute.amazonaws.com:8080/api-docs)
-- **Via IP Público**: [http://18.188.152.59:8080/api-docs](http://18.188.152.59:8080/api-docs)
-
-## 🌐 Ambiente de homologação
-
-Este ambiente foi utilizado para validar o deploy e realizar testes finais antes de enviar as alterações para produção.
-
 - **URLs de acesso**:
   - [API Docs DNS](http://ec2-13-58-172-229.us-east-2.compute.amazonaws.com:8080/api-docs)
-  - [API Docs IP](http://13.58.172.229:8080/api-docs/)
 
 ## 🛠️ Desafios Enfrentados
 
