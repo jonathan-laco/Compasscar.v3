@@ -13,13 +13,13 @@ API para gerenciamento de pedidos, clientes e veículos em um sistema de vendas 
 1 - Clone o projeto
 
 ```bash
-  git clone https://github.com/jonathan-laco/CompassCar.v3.git
+  git clone https://github.com/jonathan-laco/Compasscar.v3
 ```
 
 2 - Vá até o diretório
 
 ```bash
-  cd  CompassCar.v3
+  cd  Compasscar.v3
 ```
 
 3 - Instale as dependências
@@ -74,14 +74,15 @@ Executar testes use o comando
 
 os testes já estão definidos para --coverage, exibindo a cobertura de testes feitos no projeto
 
-## 🔢 Documentação da API
+# 🔢 Documentação da API
 
 ## 🌐 Ambiente de Produção
 
 A documentação da API está apontada para o DNS público, garantindo que as informações estejam sempre atualizadas e acessíveis. Utilize os links abaixo para acessar a documentação:
 
 - **URLs de acesso**:
-  - [API Docs DNS](https://compasscarv3-production.up.railway.app/api-docs)
+  - [URL da API hospedada na railway](https://compasscarv3-production.up.railway.app/api-docs)
+  - [Postman Collection railway](https://www.postman.com/jonathan0x539/workspace/compasscar-v3/collection/14156529-d51a5a9f-4688-4a37-aafe-6b49f2faeeeb?action=share&source=copy-link&creator=14156529)
 
 ## 🛠️ Desafios Enfrentados
 
@@ -100,3 +101,7 @@ A utilização do Docker foi um fator essencial para garantir uma aplicação ma
 ### 4. Reflexão Geral
 
 O desenvolvimento deste projeto apresentou desafios diversos que contribuíram para o aprendizado e evolução no uso de boas práticas em backend, integração de sistemas e automação de ambientes.
+
+### 5. Testes Locais
+
+Existe uma collection do Postman dentro da pasta "postman" para testar a API localmente.
