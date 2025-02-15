@@ -81,7 +81,7 @@ os testes já estão definidos para --coverage, exibindo a cobertura de testes f
 A documentação da API está apontada para o DNS público, garantindo que as informações estejam sempre atualizadas e acessíveis. Utilize os links abaixo para acessar a documentação:
 
 - **URLs de acesso**:
-  - [API Docs DNS](http://ec2-13-58-172-229.us-east-2.compute.amazonaws.com:8080/api-docs)
+  - [API Docs DNS](https://compasscarv3-production.up.railway.app/api-docs)
 
 ## 🛠️ Desafios Enfrentados
 
