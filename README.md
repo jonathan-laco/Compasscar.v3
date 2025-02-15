@@ -1,6 +1,6 @@
 ## 🚗 CompassCar API 3.0
 
-API para gerenciamento de pedidos, clientes e veículos em um sistema de vendas de automóveis. Utiliza Node.js com TypeScript, Prisma como ORM para o banco de dados PostgreSQL, e validação de dados com Joi.
+API para gerenciamento de pedidos, clientes e veículos em um sistema de vendas de automóveis. Desenvolvida com Node.js e TypeScript, utiliza o Prisma como ORM para interagir com o banco de dados PostgreSQL, além de validação de dados com Joi.
 
 ## 💻 EXECUTANDO PROJETO EM CLOUD E LOCALMENTE ⬇️
 
@@ -84,6 +84,16 @@ A documentação da API está apontada para o DNS público, garantindo que as in
   - [URL da API hospedada na railway](https://compasscarv3-production.up.railway.app/api-docs)
   - [Postman Collection railway](https://www.postman.com/jonathan0x539/workspace/compasscar-v3/collection/14156529-d51a5a9f-4688-4a37-aafe-6b49f2faeeeb?action=share&source=copy-link&creator=14156529)
 
+## Testes Locais
+
+Existe uma collection do Postman dentro da pasta "postman" para testar a API localmente.
+
+## Guia de Uso
+
+Caso tenha dificuldades, consulte o guia de uso disponível no link abaixo:
+
+- [Guia de Uso](https://pepper-tuck-27a.notion.site/Compass-CAR-19be90d9b1278002844acf9ba174be2e?pvs=73)
+
 ## 🛠️ Desafios Enfrentados
 
 ### 1. Criação de Testes
@@ -101,7 +111,3 @@ A utilização do Docker foi um fator essencial para garantir uma aplicação ma
 ### 4. Reflexão Geral
 
 O desenvolvimento deste projeto apresentou desafios diversos que contribuíram para o aprendizado e evolução no uso de boas práticas em backend, integração de sistemas e automação de ambientes.
-
-### 5. Testes Locais
-
-Existe uma collection do Postman dentro da pasta "postman" para testar a API localmente.
