@@ -2,7 +2,7 @@
 
 API para gerenciamento de pedidos, clientes e veículos em um sistema de vendas de automóveis. Desenvolvida com Node.js e TypeScript, utiliza o Prisma como ORM para interagir com o banco de dados PostgreSQL, além de validação de dados com Joi.
 
-## 💻 EXECUTANDO PROJETO EM CLOUD E LOCALMENTE ⬇️
+## 💻 EXECUTANDO PROJETO EM CLOUD E LOCALMENTE 
 
 ### Pré-requisitos
 
