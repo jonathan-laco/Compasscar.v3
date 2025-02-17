@@ -84,6 +84,8 @@ A documentação da API está apontada para o DNS público, garantindo que as in
   - [URL da API hospedada na railway](https://compasscarv3-production.up.railway.app/api-docs)
   - [Postman Collection railway](https://www.postman.com/jonathan0x539/workspace/compasscar-v3/collection/14156529-d51a5a9f-4688-4a37-aafe-6b49f2faeeeb?action=share&source=copy-link&creator=14156529)
 
+**Nota:** O projeto pode ficar indisponível por usar o plano free da Railway.
+
 ## Testes Locais
 
 Existe uma collection do Postman dentro da pasta "postman" para testar a API localmente.
