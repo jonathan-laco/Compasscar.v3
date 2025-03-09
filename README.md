@@ -113,3 +113,5 @@ A utilização do Docker foi um fator essencial para garantir uma aplicação ma
 ### 4. Reflexão Geral
 
 O desenvolvimento deste projeto apresentou desafios diversos que contribuíram para o aprendizado e evolução no uso de boas práticas em backend, integração de sistemas e automação de ambientes.
+#
+Feito com ❤️ por Jonathan Laco
